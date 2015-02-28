@@ -1,2 +1,2 @@
-# challengeprogress
+# Progress
 Pair Columbus Challenge Progress
