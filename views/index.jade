@@ -1,5 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Pair Columbus Challenge Progress
+  h2 User: nicolasmccurdy
+  ul
+    - for result in results
+      li
+        input(type='checkbox', checked=result.complete, disabled)
+        = result.challenge
