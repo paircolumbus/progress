@@ -12,6 +12,14 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// view helpers
+app.locals.colorClass = function (result) {
+  return 'text-' + (result ? 'success' : 'danger');
+};
+app.locals.iconClass = function (result) {
+  return 'glyphicon-' + (result ? 'ok' : 'remove');
+};
+
 /* GET home page. */
 app.get('/', function(req, res, next) {
   progress.getProgressAll(function (error, results) {
