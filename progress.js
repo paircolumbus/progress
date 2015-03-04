@@ -22,18 +22,20 @@ function githubRequest(pathname, callback) {
   });
 }
 
-function getProgressAll(callback) {
+function getProgressAll(user, callback) {
   githubRequest('/orgs/paircolumbus/repos', function (error, repos) {
     if (error || !repos) {
       callback(error);
     } else {
       var challenges = repos.map(function (repo) { return repo.name; });
-      async.map(challenges, getProgress, callback);
+      async.map(challenges, function (challenge, callback) {
+        getProgress(user, challenge, callback);
+      }, callback);
     }
   });
 }
 
-function getProgress(challenge, callback) {
+function getProgress(user, challenge, callback) {
   githubRequest('/repos/paircolumbus/' + challenge + '/pulls', function (error, body) {
     if (error) {
       callback(error);
@@ -41,7 +43,7 @@ function getProgress(challenge, callback) {
       callback(error, {
         challenge: challenge,
         complete: body.some(function (pull) {
-          return pull.user.login === 'nicolasmccurdy';
+          return pull.user.login === user;
         })
       });
     }
