@@ -29,7 +29,7 @@ app.get('/', function(req, res, next) {
   }
 });
 app.get('/:user', function(req, res, next) {
-  progress.getProgressAll(req.params.user, function (error, results) {
+  progress.getOverallProgress(req.params.user, function (error, results) {
     if (error) {
       next(error);
     } else {

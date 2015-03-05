@@ -23,7 +23,7 @@ function githubRequest(pathname, callback) {
   });
 }
 
-function getProgressAll(user, callback) {
+function getOverallProgress(user, callback) {
   async.map(challenges, function (challenge, callback) {
     getProgress(user, challenge, callback);
   }, callback);
@@ -45,6 +45,6 @@ function getProgress(user, challenge, callback) {
 }
 
 module.exports = {
-  getProgress: getProgress,
-  getProgressAll: getProgressAll
+  getOverallProgress: getOverallProgress,
+  getProgress: getProgress
 };
