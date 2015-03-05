@@ -22,12 +22,18 @@ app.locals.iconClass = function (result) {
 
 /* GET home page. */
 app.get('/', function(req, res, next) {
-  var user = 'nicolasmccurdy';
-  progress.getProgressAll(user, function (error, results) {
+  if (req.query.user) {
+    res.redirect('/' + req.query.user);
+  } else {
+    res.render('index');
+  }
+});
+app.get('/:user', function(req, res, next) {
+  progress.getProgressAll(req.params.user, function (error, results) {
     if (error) {
       next(error);
     } else {
-      res.render('index', { results: results, user: user });
+      res.render('index', { results: results, user: req.params.user });
     }
   });
 });

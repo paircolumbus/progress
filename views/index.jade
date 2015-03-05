@@ -6,8 +6,15 @@ block content
       small Pair Columbus
       br
       a(href='/') Challenge Progress
-  h2= user
+  form(action='/', role='form')
+    span#form-help.help-block Choose a user to check progress.
+    .form-group
+      .input-group
+        input.form-control(name='user', placeholder='user', aria-describedby='form-help', autofocus)
+        span.input-group-btn
+          input.btn.btn-primary(type='submit', value='Check')
   if results
+    h2= user
     ul.results
       for result in results
         li(class=colorClass(result.complete))
