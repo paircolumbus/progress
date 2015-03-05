@@ -23,9 +23,24 @@ function githubRequest(pathname, callback) {
   });
 }
 
-function getOverallProgress(user, callback) {
-  async.map(challenges, function (challenge, callback) {
+function getCategoryProgress(user, category, callback) {
+  async.map(category.challenges, function (challenge, callback) {
     getProgress(user, challenge, callback);
+  }, function (error, challenges) {
+    if (error) {
+      callback(error);
+    } else {
+      callback(error, {
+        category: category.category,
+        challenges: challenges
+      });
+    }
+  });
+}
+
+function getOverallProgress(user, callback) {
+  async.map(challenges, function (category, callback) {
+    getCategoryProgress(user, category, callback);
   }, callback);
 }
 
@@ -45,6 +60,7 @@ function getProgress(user, challenge, callback) {
 }
 
 module.exports = {
+  getCategoryProgress: getCategoryProgress,
   getOverallProgress: getOverallProgress,
   getProgress: getProgress
 };

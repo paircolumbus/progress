@@ -16,10 +16,12 @@ block content
   if results
     h2= user
     ul.results
-      for result in results
-        li(class=colorClass(result.complete))
-          span.glyphicon.icon-column(class=iconClass(result.complete))
-          a(href='https://github.com/paircolumbus/' + result.challenge)= result.challenge
+      for category in results
+        h3= category.category
+        for result in category.challenges
+          li(class=colorClass(result.complete))
+            span.glyphicon.icon-column(class=iconClass(result.complete))
+            a(href='https://github.com/paircolumbus/' + result.challenge)= result.challenge
   footer
     hr
     p © 2015 Nicolas McCurdy
