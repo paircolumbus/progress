@@ -1,4 +1,5 @@
 var async = require('async');
+var challenges = require('./challenges');
 var request = require('request');
 
 function githubRequest(pathname, callback) {
@@ -23,16 +24,9 @@ function githubRequest(pathname, callback) {
 }
 
 function getProgressAll(user, callback) {
-  githubRequest('/orgs/paircolumbus/repos', function (error, repos) {
-    if (error || !repos) {
-      callback(error);
-    } else {
-      var challenges = repos.map(function (repo) { return repo.name; });
-      async.map(challenges, function (challenge, callback) {
-        getProgress(user, challenge, callback);
-      }, callback);
-    }
-  });
+  async.map(challenges, function (challenge, callback) {
+    getProgress(user, challenge, callback);
+  }, callback);
 }
 
 function getProgress(user, challenge, callback) {
