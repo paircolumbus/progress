@@ -19,8 +19,8 @@ block content
       for category in results
         h3= category.category
         for result in category.challenges
-          li(class=colorClass(result.complete))
-            span.glyphicon.icon-column(class=iconClass(result.complete))
+          li(class='text-' + (result.complete ? 'success' : 'danger'))
+            span.glyphicon.icon-column(class='glyphicon-' + (result.complete ? 'ok' : 'remove'))
             a(href='https://github.com/paircolumbus/' + result.challenge)= result.challenge
   footer
     hr
