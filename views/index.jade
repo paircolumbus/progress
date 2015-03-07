@@ -18,12 +18,14 @@ block content
     h2
       a(href='https://github.com/' + user)= user
     for category in results
-      h3= category.category
-      ul.results
-        for result in category.challenges
-          li(class='text-' + (result.complete ? 'success' : 'danger'))
-            span.glyphicon.icon-column(class='glyphicon-' + (result.complete ? 'ok' : 'remove'))
-            a(href='https://github.com/paircolumbus/' + result.challenge)= result.challenge
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title= category.category
+        ul.list-group
+          for result in category.challenges
+            li.list-group-item(class='text-' + (result.complete ? 'success' : 'danger'))
+              span.glyphicon.icon-column(class='glyphicon-' + (result.complete ? 'ok' : 'remove'))
+              a(href='https://github.com/paircolumbus/' + result.challenge)= result.challenge
   footer
     hr
     | © 2015 Nicolas McCurdy
