@@ -28,31 +28,39 @@ app.get('/', function(req, res, next) {
   }
 });
 app.get('/:user', function(req, res, next) {
-  progress.getOverallProgress(req.params.user, function (error, results) {
+  progress.userExists(req.params.user, function (error, exists) {
     if (error) {
       next(error);
-    } else if (req.params.user === 'favicon.ico') {
-      res.status(404).send('Not found');
-    } else {
-      User.findOneAndUpdate({
-        name: req.params.user
-      }, {
-        name: req.params.user,
-        completed: progress.getCompleted(results)
-      }, {
-        upsert: true
-      }, function (error) {
+    } else if (exists) {
+      progress.getOverallProgress(req.params.user, function (error, results) {
         if (error) {
           next(error);
         } else {
-          res.render('index', {
-            completed: progress.getCompleted(results),
-            results: results,
-            total: progress.getTotal(),
-            user: req.params.user
+          User.findOneAndUpdate({
+            name: req.params.user
+          }, {
+            name: req.params.user,
+            completed: progress.getCompleted(results)
+          }, {
+            upsert: true
+          }, function (error) {
+            if (error) {
+              next(error);
+            } else {
+              res.render('index', {
+                completed: progress.getCompleted(results),
+                results: results,
+                total: progress.getTotal(),
+                user: req.params.user
+              });
+            }
           });
         }
       });
+    } else {
+      var err = new Error('Not Found');
+      err.status = 404;
+      next(err);
     }
   });
 });

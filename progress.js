@@ -73,10 +73,21 @@ function getTotal() {
   }, 0);
 }
 
+function userExists(user, callback) {
+  githubRequest('/users/' + user, function (error, body) {
+    if (error) {
+      callback(error);
+    } else {
+      callback(error, body.message !== 'Not Found');
+    }
+  });
+}
+
 module.exports = {
   getCategoryProgress: getCategoryProgress,
   getCompleted: getCompleted,
   getOverallProgress: getOverallProgress,
   getProgress: getProgress,
-  getTotal: getTotal
+  getTotal: getTotal,
+  userExists: userExists
 };
