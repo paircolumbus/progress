@@ -24,6 +24,8 @@ app.get('/:user', function(req, res, next) {
   progress.getOverallProgress(req.params.user, function (error, results) {
     if (error) {
       next(error);
+    } else if (req.params.user === 'favicon.ico') {
+      res.status(404).send('Not found');
     } else {
       res.render('index', { results: results, user: req.params.user });
     }
