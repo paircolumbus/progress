@@ -20,5 +20,6 @@ Progress is also deployed on [Heroku](https://www.heroku.com/), which will autom
 These are the technologies used by Progress itself, not the technologies covered in the Pair Columbus challenges.
 - [Node.js](http://nodejs.org/)
 - [Express](http://expressjs.com/)
+- [MongoDB](http://www.mongodb.org/)
 - [GitHub API v3](https://developer.github.com/v3/)
 - [Bootstrap](http://getbootstrap.com/)
