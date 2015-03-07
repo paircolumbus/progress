@@ -13,8 +13,8 @@ block content
         input.form-control(name='user', placeholder='user', aria-describedby='form-help', autofocus)
         span.input-group-btn
           input.btn.btn-primary(type='submit', value='Check')
+  hr
   if results
-    hr
     h2
       a(href='https://github.com/' + user)= user
     for category in results
@@ -28,7 +28,7 @@ block content
               a(href='https://github.com/paircolumbus/' + result.challenge)= result.challenge
   else
     h2 Scoreboard
-    table.table
+    table.table.table-bordered.table-striped
       thead
         tr
           th #
