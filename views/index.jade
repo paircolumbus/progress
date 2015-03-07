@@ -14,10 +14,12 @@ block content
         span.input-group-btn
           input.btn.btn-primary(type='submit', value='Check')
   if results
-    h2= user
-    ul.results
-      for category in results
-        h3= category.category
+    hr
+    h2
+      a(href='https://github.com/' + user)= user
+    for category in results
+      h3= category.category
+      ul.results
         for result in category.challenges
           li(class='text-' + (result.complete ? 'success' : 'danger'))
             span.glyphicon.icon-column(class='glyphicon-' + (result.complete ? 'ok' : 'remove'))
