@@ -20,15 +20,6 @@ footer {
 
 /* results */
 
-.results {
-  list-style: none;
-  padding: 0;
-}
-
-.results li {
-  margin: 1em 0;
-}
-
 .icon-column {
   margin-right: 0.5em;
 }
