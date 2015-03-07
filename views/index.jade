@@ -17,6 +17,7 @@ block content
   if results
     h2
       a(href='https://github.com/' + user)= user
+    p #{completed} of #{total} challenges completed
     for category in results
       .panel.panel-default
         .panel-heading
@@ -28,6 +29,7 @@ block content
               a(href='https://github.com/paircolumbus/' + result.challenge)= result.challenge
   else
     h2 Scoreboard
+    p #{total} challenges total
     table.table.table-bordered.table-striped
       thead
         tr

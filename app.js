@@ -22,7 +22,7 @@ app.get('/', function(req, res, next) {
       if (error) {
         next(error);
       } else {
-        res.render('index', { users: users });
+        res.render('index', { total: progress.getTotal(), users: users });
       }
     });
   }
@@ -45,7 +45,12 @@ app.get('/:user', function(req, res, next) {
         if (error) {
           next(error);
         } else {
-          res.render('index', { results: results, user: req.params.user });
+          res.render('index', {
+            completed: progress.getCompleted(results),
+            results: results,
+            total: progress.getTotal(),
+            user: req.params.user
+          });
         }
       });
     }

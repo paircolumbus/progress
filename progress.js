@@ -67,9 +67,16 @@ function getProgress(user, challenge, callback) {
   });
 }
 
+function getTotal() {
+  return challenges.reduce(function (sum, category) {
+    return sum + category.challenges.length;
+  }, 0);
+}
+
 module.exports = {
   getCategoryProgress: getCategoryProgress,
   getCompleted: getCompleted,
   getOverallProgress: getOverallProgress,
-  getProgress: getProgress
+  getProgress: getProgress,
+  getTotal: getTotal
 };
