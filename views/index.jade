@@ -38,7 +38,8 @@ block content
         for user, index in users
           tr
             th= index + 1
-            td= user.name
+            td
+              a(href='https://github.com/' + user.name)= user.name
             td= user.completed
   footer
     hr
