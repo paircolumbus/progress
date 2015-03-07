@@ -22,6 +22,20 @@ block content
           li(class='text-' + (result.complete ? 'success' : 'danger'))
             span.glyphicon.icon-column(class='glyphicon-' + (result.complete ? 'ok' : 'remove'))
             a(href='https://github.com/paircolumbus/' + result.challenge)= result.challenge
+  else
+    h2 Scoreboard
+    table.table
+      thead
+        tr
+          th #
+          th User
+          th Completed
+      tbody
+        for user, index in users
+          tr
+            th= index + 1
+            td= user.name
+            td= user.completed
   footer
     hr
     p © 2015 Nicolas McCurdy

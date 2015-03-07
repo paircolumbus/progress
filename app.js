@@ -4,6 +4,7 @@ var logger = require('morgan');
 
 var app = express();
 var progress = require('./progress');
+var User = require('./user');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -17,7 +18,13 @@ app.get('/', function(req, res, next) {
   if (req.query.user) {
     res.redirect('/' + req.query.user);
   } else {
-    res.render('index');
+    User.find({}).sort({ completed: -1 }).exec(function (error, users) {
+      if (error) {
+        next(error);
+      } else {
+        res.render('index', { users: users });
+      }
+    });
   }
 });
 app.get('/:user', function(req, res, next) {
@@ -27,7 +34,20 @@ app.get('/:user', function(req, res, next) {
     } else if (req.params.user === 'favicon.ico') {
       res.status(404).send('Not found');
     } else {
-      res.render('index', { results: results, user: req.params.user });
+      User.findOneAndUpdate({
+        name: req.params.user
+      }, {
+        name: req.params.user,
+        completed: progress.getCompleted(results)
+      }, {
+        upsert: true
+      }, function (error) {
+        if (error) {
+          next(error);
+        } else {
+          res.render('index', { results: results, user: req.params.user });
+        }
+      });
     }
   });
 });

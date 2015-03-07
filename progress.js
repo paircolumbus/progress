@@ -38,6 +38,14 @@ function getCategoryProgress(user, category, callback) {
   });
 }
 
+function getCompleted(categories) {
+  return categories.reduce(function (sum, category) {
+    return sum + category.challenges.filter(function (challenge) {
+      return challenge.complete;
+    }).length;
+  }, 0);
+}
+
 function getOverallProgress(user, callback) {
   async.map(challenges, function (category, callback) {
     getCategoryProgress(user, category, callback);
@@ -61,6 +69,7 @@ function getProgress(user, challenge, callback) {
 
 module.exports = {
   getCategoryProgress: getCategoryProgress,
+  getCompleted: getCompleted,
   getOverallProgress: getOverallProgress,
   getProgress: getProgress
 };
