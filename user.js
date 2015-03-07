@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/progress');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/progress');
 
 module.exports = mongoose.model('User', {
   name: {
