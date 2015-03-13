@@ -30,21 +30,23 @@ block content
   else
     h2 Scoreboard
     p #{total} challenges total
-    table.table.table-bordered.table-striped
-      thead
-        tr
-          th #
-          th User
-          th Completed
-      tbody
-        for user, index in users
+    .table-responsive
+      table.table.table-bordered.table-striped
+        thead
           tr
-            th= index + 1
-            td
-              a(href='/' + user.name)= user.name
-            td= user.completed
+            th #
+            th User
+            th Completed
+        tbody
+          for user, index in users
+            tr
+              th= index + 1
+              td
+                a(href='/' + user.name)= user.name
+              td= user.completed
   footer
     hr
-    | © 2015 Nicolas McCurdy
-    br
-    a(href='https://github.com/paircolumbus/progress') Fork me on GitHub
+    p
+      | © 2015 Nicolas McCurdy
+      br
+      a(href='https://github.com/paircolumbus/progress') Fork me on GitHub
