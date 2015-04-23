@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
+var markdown = require('markdown').markdown;
 
 var app = express();
 var progress = require('./progress');
@@ -12,6 +13,9 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// locals
+app.locals.markdown = markdown;
 
 /* GET home page. */
 app.get('/', function(req, res, next) {

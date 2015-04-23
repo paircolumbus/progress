@@ -32,6 +32,7 @@ function getCategoryProgress(user, category, callback) {
     } else {
       callback(error, {
         category: category.category,
+        description: category.description,
         challenges: challenges
       });
     }

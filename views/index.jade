@@ -22,6 +22,7 @@ block content
       .panel.panel-default
         .panel-heading
           h3.panel-title= category.category
+        .panel-body!= markdown.toHTML(category.description)
         ul.list-group
           for result in category.challenges
             li.list-group-item(class='text-' + (result.complete ? 'success' : 'danger'))
