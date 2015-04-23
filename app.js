@@ -17,6 +17,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 // locals
 app.locals.markdown = markdown;
 
+// loading and caching challenge information
+var cache = {};
+app.use(function (req, res, next) {
+  if (cache.challenges) {
+    next();
+  } else {
+    progress.getChallenges(function (error, challenges) {{
+      cache.challenges = challenges;
+      next(error);
+    }});
+  }
+});
+
 /* GET home page. */
 app.get('/', function(req, res, next) {
   if (req.query.user) {
@@ -26,7 +39,7 @@ app.get('/', function(req, res, next) {
       if (error) {
         next(error);
       } else {
-        res.render('index', { total: progress.getTotal(), users: users });
+        res.render('index', { total: progress.getTotal(cache.challenges), users: users });
       }
     });
   }
@@ -36,7 +49,7 @@ app.get('/:user', function(req, res, next) {
     if (error) {
       next(error);
     } else if (exists) {
-      progress.getOverallProgress(req.params.user, function (error, results) {
+      progress.getOverallProgress(cache.challenges, req.params.user, function (error, results) {
         if (error) {
           next(error);
         } else {
@@ -54,7 +67,7 @@ app.get('/:user', function(req, res, next) {
               res.render('index', {
                 completed: progress.getCompleted(results),
                 results: results,
-                total: progress.getTotal(),
+                total: progress.getTotal(cache.challenges),
                 user: req.params.user
               });
             }

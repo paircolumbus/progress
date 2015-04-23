@@ -1,5 +1,4 @@
 var async = require('async');
-var challenges = require('./challenges');
 var request = require('request');
 
 function githubRequest(pathname, callback) {
@@ -23,7 +22,7 @@ function githubRequest(pathname, callback) {
   });
 }
 
-function getCategoryProgress(user, category, callback) {
+function getCategoryProgress(challenges, user, category, callback) {
   async.map(category.challenges, function (challenge, callback) {
     getProgress(user, challenge, callback);
   }, function (error, challenges) {
@@ -47,9 +46,9 @@ function getCompleted(categories) {
   }, 0);
 }
 
-function getOverallProgress(user, callback) {
+function getOverallProgress(challenges, user, callback) {
   async.map(challenges, function (category, callback) {
-    getCategoryProgress(user, category, callback);
+    getCategoryProgress(challenges, user, category, callback);
   }, callback);
 }
 
@@ -68,10 +67,19 @@ function getProgress(user, challenge, callback) {
   });
 }
 
-function getTotal() {
+function getTotal(challenges) {
   return challenges.reduce(function (sum, category) {
     return sum + category.challenges.length;
   }, 0);
+}
+
+function getChallenges(callback) {
+  request({
+    url: 'http://paircolumbus.org/api/challenges.json',
+    json: true
+  }, function (error, response, body) {
+    callback(error, body);
+  });
 }
 
 function userExists(user, callback) {
@@ -90,5 +98,6 @@ module.exports = {
   getOverallProgress: getOverallProgress,
   getProgress: getProgress,
   getTotal: getTotal,
+  getChallenges: getChallenges,
   userExists: userExists
 };
