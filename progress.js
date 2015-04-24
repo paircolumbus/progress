@@ -73,15 +73,6 @@ function getTotal(challenges) {
   }, 0);
 }
 
-function getChallenges(callback) {
-  request({
-    url: 'http://paircolumbus.org/api/challenges.json',
-    json: true
-  }, function (error, response, body) {
-    callback(error, body);
-  });
-}
-
 function userExists(user, callback) {
   githubRequest('/users/' + user, function (error, body) {
     if (error) {
@@ -98,6 +89,5 @@ module.exports = {
   getOverallProgress: getOverallProgress,
   getProgress: getProgress,
   getTotal: getTotal,
-  getChallenges: getChallenges,
   userExists: userExists
 };

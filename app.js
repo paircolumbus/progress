@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var markdown = require('markdown').markdown;
+var request = require('request');
 
 var app = express();
 var progress = require('./progress');
@@ -23,9 +24,17 @@ app.use(function (req, res, next) {
   if (cache.challenges) {
     next();
   } else {
-    progress.getChallenges(function (error, challenges) {{
-      cache.challenges = challenges;
-      next(error);
+    request({
+      url: 'http://paircolumbus.org/api/challenges.json',
+      json: true
+    }, function (error, response, challenges) {{
+      if (!error && response.statusCode == 200) {
+        cache.challenges = challenges;
+        next();
+      } else {
+        next(error ||
+             new Error('Challenges API Error: ' + response.statusCode));
+      }
     }});
   }
 });
