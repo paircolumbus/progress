@@ -13,8 +13,8 @@ You should [install Node.js](http://nodejs.org/download/) first.
 npm install
 npm start
 ```
-If you run into issues with rate limiting, please [register a new OAuth application on GitHub](https://github.com/settings/applications/new) and set the `PROGRESS_ID` and `PROGRESS_SECRET` environment variables to your client ID and client secret (respectively) before you start the app.
-Progress is also deployed on [Heroku](https://www.heroku.com/), which will automatically deploy the app whenever you commit to `master` (and it already has the client ID and client secret set up.
+If you run into issues with rate limiting, please [register a new personal access token on GitHub](https://github.com/settings/tokens/new) and set the `PROGRESS_USER` and `PROGRESS_TOKEN` environment variables to your GitHub username and personal access token (respectively) before you start the app.
+Progress is also deployed on [Heroku](https://www.heroku.com/), which will automatically deploy the app whenever you commit to `master` (and it already has the environment variables set up).
 
 ## Stack
 These are the technologies used by Progress itself, not the technologies covered in the Pair Columbus challenges.
