@@ -9,9 +9,9 @@ function githubRequest(pathname, callback) {
       'User-Agent': 'request'
     },
     json: true,
-    qs: {
-      client_id: process.env.PROGRESS_ID,
-      client_secret: process.env.PROGRESS_SECRET
+    auth: {
+      user: process.env.PROGRESS_USER,
+      password: process.env.PROGRESS_TOKEN
     }
   }, function (error, response, body) {
     if (body.message) {
