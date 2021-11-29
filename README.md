@@ -13,6 +13,8 @@ You should [install Node.js](http://nodejs.org/download/) first.
 npm install
 npm start
 ```
+Navigate to localhost:3000 with your browser to view the application.
+
 If you run into issues with rate limiting, please [register a new personal access token on GitHub](https://github.com/settings/tokens/new) and set the `PROGRESS_USER` and `PROGRESS_TOKEN` environment variables to your GitHub username and personal access token (respectively) before you start the app.
 Progress is also deployed on [Heroku](https://www.heroku.com/), which will automatically deploy the app whenever you commit to `master` (and it already has the environment variables set up).
 
